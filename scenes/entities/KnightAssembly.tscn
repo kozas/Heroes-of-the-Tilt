@@ -1,3 +1,18 @@
-[gd_scene format=3 uid="uid://ca7onxngfwx32"]
+[gd_scene load_steps=5 format=3 uid="uid://ca7onxngfwx32"]
+
+[ext_resource type="Script" path="res://scripts/entities/knight_assembly.gd" id="1_c0itu"]
+[ext_resource type="PackedScene" uid="uid://b8xiq1fbsdh8t" path="res://scenes/entities/Horse.tscn" id="1_cvagi"]
+[ext_resource type="PackedScene" uid="uid://j6e4dyfy78c3" path="res://scenes/entities/Knight.tscn" id="2_m18li"]
+[ext_resource type="PackedScene" uid="uid://c5ms2yie2a4e3" path="res://scenes/entities/Lance.tscn" id="3_54ykb"]
 
 [node name="KnightAssembly" type="Node2D"]
+script = ExtResource("1_c0itu")
+
+[node name="Horse" parent="." instance=ExtResource("1_cvagi")]
+position = Vector2(0, 17)
+
+[node name="Knight" parent="." instance=ExtResource("2_m18li")]
+position = Vector2(17, 1)
+
+[node name="Lance" parent="." instance=ExtResource("3_54ykb")]
+position = Vector2(24, 14)

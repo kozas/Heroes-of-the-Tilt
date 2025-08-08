@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://bno8icnb4c55k"]
+
+[ext_resource type="PackedScene" uid="uid://b8xiq1fbsdh8t" path="res://scenes/entities/Horse.tscn" id="1_faoih"]
+
+[sub_resource type="GDScript" id="GDScript_o6otc"]
+script/source = "extends Node2D
+
+@onready var horse: Horse = $Horse
+
+func _ready():
+	
+	var test: Horse  # If this line doesn't error, the class is registered
+	print(\"Horse class is recognized!\")
+	
+	
+	# Position horse on the left side
+	horse.position = Vector2(200, 500)
+	
+	# Make it a player horse so we can control it
+	#horse.is_player = true
+	
+	print(\"Test Scene Ready!\")
+	print(\"Press SPACE to start charge\")
+	print(\"Press R to reset\")
+	print(\"W/S to influence speed (once moving)\")
+
+func _input(event):
+	# Start the charge with spacebar
+	if event.is_action_pressed(\"ui_select\"):  # Space key
+		print(\"Starting charge sequence...\")
+		horse.start_charge()
+	
+	# Reset with R key
+	if event.is_action_pressed(\"ui_text_backspace\"):  # R key
+		_reset_test()
+	
+	# The W/S controls are handled in the horse script itself
+
+func _reset_test():
+	print(\"Resetting horse...\")
+	# Force horse back to idle
+	horse.state_machine.current_state.transitioned.emit(
+		horse.state_machine.current_state, \"Idle\"
+	)
+	horse.position = Vector2(200, 500)
+	horse.current_speed = 0
+	horse.target_speed = 0
+
+# Optional: Add debug display
+func _process(_delta):
+	# Print state changes to console
+	if Input.is_action_just_pressed(\"ui_select\"):
+		var state_name = horse.state_machine.current_state.name if horse.state_machine.current_state else \"None\"
+		print(\"Current State: \", state_name)
+		print(\"Current Speed: \", horse.current_speed)
+		print(\"Target Speed: \", horse.target_speed)
+"
+
+[node name="TestWorld" type="Node2D"]
+script = SubResource("GDScript_o6otc")
+
+[node name="Ground" type="ColorRect" parent="."]
+offset_top = 550.0
+offset_right = 2000.0
+offset_bottom = 650.0
+color = Color(0.601647, 0.67529, 0.376277, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(500, 300)
+position_smoothing_enabled = true
+
+[node name="Horse" parent="." instance=ExtResource("1_faoih")]

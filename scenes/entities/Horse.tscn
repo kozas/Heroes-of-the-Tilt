@@ -1,3 +1,45 @@
-[gd_scene format=3 uid="uid://b8xiq1fbsdh8t"]
+[gd_scene load_steps=8 format=3 uid="uid://b8xiq1fbsdh8t"]
 
-[node name="Horse" type="Node2D"]
+[ext_resource type="Script" path="res://scripts/components/state_machine.gd" id="1_dv01j"]
+[ext_resource type="Script" path="res://scripts/entities/horse.gd" id="1_watq7"]
+[ext_resource type="Script" path="res://scripts/entities/states/horse_idle_state.gd" id="2_y6ryr"]
+[ext_resource type="Script" path="res://scripts/entities/states/horse_walking_state.gd" id="3_tkmk7"]
+[ext_resource type="Script" path="res://scripts/entities/states/horse_cantering_state.gd" id="4_7viy2"]
+[ext_resource type="Script" path="res://scripts/entities/states/horse_galloping_state.gd" id="5_rxeaq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3uye"]
+size = Vector2(64, 48)
+
+[node name="Horse" type="CharacterBody2D"]
+script = ExtResource("1_watq7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 64.0
+offset_bottom = 48.0
+color = Color(0.617035, 0.385255, 0.217735, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(32, 24)
+shape = SubResource("RectangleShape2D_d3uye")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_dv01j")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("2_y6ryr")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("3_tkmk7")
+
+[node name="Cantering" type="Node" parent="StateMachine"]
+script = ExtResource("4_7viy2")
+
+[node name="Galloping" type="Node" parent="StateMachine"]
+script = ExtResource("5_rxeaq")
+
+[node name="SpeedTimer" type="Timer" parent="."]
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

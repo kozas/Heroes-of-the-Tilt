@@ -1,3 +1,36 @@
-[gd_scene format=3 uid="uid://r8spsd0sia6q"]
+[gd_scene load_steps=4 format=3 uid="uid://r8spsd0sia6q"]
+
+[ext_resource type="PackedScene" uid="uid://ca7onxngfwx32" path="res://scenes/entities/KnightAssembly.tscn" id="1_m3vdr"]
+[ext_resource type="Script" path="res://scripts/game/tilt_controller.gd" id="1_vtpa1"]
+[ext_resource type="PackedScene" uid="uid://dlb70nqyncjp2" path="res://scenes/ui/HUD.tscn" id="2_2ivdt"]
 
 [node name="TiltField" type="Node2D"]
+script = ExtResource("1_vtpa1")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 2000.0
+offset_bottom = 1080.0
+color = Color(0.596791, 0.742196, 0.381626, 1)
+
+[node name="TiltBarrier" type="ColorRect" parent="."]
+offset_top = 540.0
+offset_right = 2000.0
+offset_bottom = 560.0
+color = Color(0.557035, 0.392623, 0.229394, 1)
+
+[node name="PlayerStartPoint" type="Marker2D" parent="."]
+position = Vector2(-2, 593)
+
+[node name="OpponentStartPoint" type="Marker2D" parent="."]
+position = Vector2(1918, 513)
+
+[node name="PlayerKnight" parent="." instance=ExtResource("1_m3vdr")]
+
+[node name="OpponentKnight" parent="." instance=ExtResource("1_m3vdr")]
+is_player = false
+
+[node name="GameManager" type="Node" parent="."]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HUDPanel" parent="HUD" instance=ExtResource("2_2ivdt")]

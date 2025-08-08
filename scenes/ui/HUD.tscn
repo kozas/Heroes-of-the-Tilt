@@ -1,3 +1,32 @@
 [gd_scene format=3 uid="uid://dlb70nqyncjp2"]
 
-[node name="Hud" type="Node2D"]
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TopPanel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SpeedLabel" type="Label" parent="TopPanel"]
+layout_mode = 2
+
+[node name="StateLabel" type="Label" parent="TopPanel"]
+layout_mode = 2
+
+[node name="RoundLabel" type="Label" parent="TopPanel"]
+layout_mode = 2
+
+[node name="BottomPanel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="InstructionLabel" type="Label" parent="BottomPanel"]
+layout_mode = 2
+
+[node name="CenterMessage" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
