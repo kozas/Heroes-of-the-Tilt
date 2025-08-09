@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8xiq1fbsdh8t"]
+[gd_scene load_steps=9 format=3 uid="uid://b8xiq1fbsdh8t"]
 
 [ext_resource type="Script" path="res://scripts/components/state_machine.gd" id="1_dv01j"]
 [ext_resource type="Script" path="res://scripts/entities/horse.gd" id="1_watq7"]
+[ext_resource type="Texture2D" uid="uid://01jiopaym1vu" path="res://assets/sprites/placeholder/horse_placeholder.png" id="2_uejr0"]
 [ext_resource type="Script" path="res://scripts/entities/states/horse_idle_state.gd" id="2_y6ryr"]
 [ext_resource type="Script" path="res://scripts/entities/states/horse_walking_state.gd" id="3_tkmk7"]
 [ext_resource type="Script" path="res://scripts/entities/states/horse_cantering_state.gd" id="4_7viy2"]
@@ -13,10 +14,8 @@ size = Vector2(64, 48)
 [node name="Horse" type="CharacterBody2D"]
 script = ExtResource("1_watq7")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 64.0
-offset_bottom = 48.0
-color = Color(0.617035, 0.385255, 0.217735, 1)
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_uejr0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(32, 24)

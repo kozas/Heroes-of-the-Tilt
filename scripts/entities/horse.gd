@@ -27,9 +27,9 @@ var is_player: bool = true
 var direction: int = 1  # 1 for right, -1 for left
 
 # Node references
+@onready var sprite: Sprite2D = $Sprite
 @onready var state_machine: StateMachine = $StateMachine
 @onready var debug_label: Label = $DebugLabel
-@onready var visual: ColorRect = $ColorRect
 
 # Signals for future extension
 signal speed_changed(new_speed: float)
@@ -37,15 +37,6 @@ signal phase_changed(phase_name: String)
 signal approached_opponent(distance: float)
 
 func _ready():
-	# Set horse color based on player/opponent
-	if is_player:
-		visual.color = Color.BLUE
-		direction = 1
-	else:
-		visual.color = Color.RED
-		direction = -1
-		visual.position.x *= -1  # Flip visual for opponent
-	
 	# Initialize debug display
 	if debug_label:
 		debug_label.position = Vector2(-100, -80)
@@ -57,16 +48,31 @@ func _physics_process(delta):
 	elif current_speed > target_speed:
 		current_speed = max(current_speed - acceleration * 2 * delta, target_speed)
 	
-	# Apply movement
+	# Apply movement in the correct direction
 	velocity.x = current_speed * direction
 	move_and_slide()
 	
 	# Update debug info
 	if debug_label:
-		debug_label.text = "Speed: %d\nState: %s" % [current_speed, state_machine.current_state.name]
+		var state_name = "None"
+		if state_machine and state_machine.current_state:
+			state_name = state_machine.current_state.name
+		debug_label.text = "Speed: %d\nState: %s" % [current_speed, state_name]
+		# Keep label readable regardless of flip
+		debug_label.scale.x = abs(debug_label.scale.x) 
 	
-	# Emit signal for HUD updates
 	speed_changed.emit(current_speed)
+	
+func setup_for_pass(is_player_horse: bool, facing: int):
+	"""Properly configure horse for its side"""
+	is_player = is_player_horse
+	direction = facing
+
+	# Flip sprite based on facing direction
+	sprite.flip_h = (facing == -1)  # Flip if facing left
+
+	print("Horse setup - Player: %s, Direction: %d, Flipped: %s" % 
+		[is_player, direction, sprite.flip_h])
 
 func start_charge():
 	state_machine.current_state.transitioned.emit(state_machine.current_state, "Walking")

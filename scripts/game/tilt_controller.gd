@@ -20,6 +20,8 @@ func _ready():
 	player.global_position = player_start_point.global_position
 	opponent.global_position = opponent_start_point.global_position
 	
+	await get_tree().process_frame
+	
 	# Set opponents
 	player.opponent = opponent
 	opponent.opponent = player
