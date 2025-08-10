@@ -9,6 +9,8 @@ func enter():
 		horse.target_speed = horse.canter_speed
 		horse.phase_changed.emit("Cantering")
 		timer = 0.0
+		
+		horse.animated_sprite.play("cantering")
 
 func physics_update(delta):
 	if owner is Horse:

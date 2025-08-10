@@ -11,6 +11,8 @@ script = ExtResource("1_7bfyq")
 texture = ExtResource("2_xun6h")
 
 [node name="ShieldSprite" type="Sprite2D" parent="."]
+position = Vector2(27, -17)
 texture = ExtResource("3_hpp0y")
 
 [node name="LanceMount" type="Marker2D" parent="."]
+position = Vector2(10, 1)

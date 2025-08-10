@@ -13,17 +13,17 @@ signal knight_hit(impact_force: float)
 func setup_for_pass(is_player_knight: bool, facing: int):
 	"""Configure knight for proper side with sprites"""
 	is_player = is_player_knight
-	facing_direction = facing
+	#facing_direction = facing
 	
-	# Flip sprites based on facing
-	body_sprite.flip_h = (facing == -1)
-	shield_sprite.flip_h = (facing == -1)
-	
-	# Position shield on correct side
-	if facing == 1:  # Facing right
-		shield_sprite.position = Vector2(-30, 0)  # Shield on left
-	else:  # Facing left
-		shield_sprite.position = Vector2(30, 0)  # Shield on right
+	## Flip sprites based on facing
+	#body_sprite.flip_h = (facing == -1)
+	#shield_sprite.flip_h = (facing == -1)
+	#
+	## Position shield on correct side
+	#if facing == 1:  # Facing right
+		#shield_sprite.position = Vector2(-30, 0)  # Shield on left
+	#else:  # Facing left
+		#shield_sprite.position = Vector2(30, 0)  # Shield on right
 
 func take_hit(impact_force: float):
 	knight_hit.emit(impact_force)

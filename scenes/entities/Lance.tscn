@@ -7,17 +7,18 @@
 size = Vector2(29, 16)
 
 [node name="Lance" type="Area2D"]
+position = Vector2(113, 8)
 script = ExtResource("1_bb7cf")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="PivotPoint" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="PivotPoint"]
+position = Vector2(98, -1)
 texture = ExtResource("2_3euvt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(145.5, 0)
+position = Vector2(245, 0)
 shape = SubResource("RectangleShape2D_7x5y1")
 
 [node name="TipMarker" type="Marker2D" parent="."]
-position = Vector2(160, 1)
-
-[node name="CouchPivot" type="Node2D" parent="."]
-position = Vector2(-117, 1)
+position = Vector2(259, 1)

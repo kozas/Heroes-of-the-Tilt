@@ -15,4 +15,4 @@ position = Vector2(0, 17)
 position = Vector2(0, -39)
 
 [node name="Lance" parent="." instance=ExtResource("3_54ykb")]
-position = Vector2(126, -33)
+position = Vector2(2, -41)

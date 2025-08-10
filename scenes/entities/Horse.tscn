@@ -2,24 +2,25 @@
 
 [ext_resource type="Script" path="res://scripts/components/state_machine.gd" id="1_dv01j"]
 [ext_resource type="Script" path="res://scripts/entities/horse.gd" id="1_watq7"]
-[ext_resource type="Texture2D" uid="uid://01jiopaym1vu" path="res://assets/sprites/placeholder/horse_placeholder.png" id="2_uejr0"]
+[ext_resource type="SpriteFrames" uid="uid://donupm7n5iqe6" path="res://assets/sprites/horse_animations.tres" id="2_in7er"]
 [ext_resource type="Script" path="res://scripts/entities/states/horse_idle_state.gd" id="2_y6ryr"]
 [ext_resource type="Script" path="res://scripts/entities/states/horse_walking_state.gd" id="3_tkmk7"]
 [ext_resource type="Script" path="res://scripts/entities/states/horse_cantering_state.gd" id="4_7viy2"]
 [ext_resource type="Script" path="res://scripts/entities/states/horse_galloping_state.gd" id="5_rxeaq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3uye"]
-size = Vector2(64, 48)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uluy3"]
+size = Vector2(128, 96)
 
 [node name="Horse" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_watq7")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_uejr0")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(32, 24)
-shape = SubResource("RectangleShape2D_d3uye")
+shape = SubResource("RectangleShape2D_uluy3")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_in7er")
+animation = &"idle"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_dv01j")
@@ -42,3 +43,9 @@ script = ExtResource("5_rxeaq")
 [node name="DebugLabel" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="KnightMount" type="RemoteTransform2D" parent="."]
+position = Vector2(0, -38)
+
+[node name="LanceMount" type="RemoteTransform2D" parent="."]
+position = Vector2(0, -75)

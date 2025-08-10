@@ -26,10 +26,17 @@ var phase_timer: float = 0.0
 var is_player: bool = true
 var direction: int = 1  # 1 for right, -1 for left
 
+# Mount configuration
+var knight_mount_offset: Vector2 = Vector2(0, -48)
+var lance_mount_offset: Vector2 = Vector2(30, -60)
+
 # Node references
-@onready var sprite: Sprite2D = $Sprite
+@onready var animated_sprite: AnimatedSprite2D = $Sprite
 @onready var state_machine: StateMachine = $StateMachine
 @onready var debug_label: Label = $DebugLabel
+# Mount points
+@onready var knight_mount: RemoteTransform2D = $KnightMount
+@onready var lance_mount: RemoteTransform2D = $LanceMount
 
 # Signals for future extension
 signal speed_changed(new_speed: float)
@@ -67,12 +74,30 @@ func setup_for_pass(is_player_horse: bool, facing: int):
 	"""Properly configure horse for its side"""
 	is_player = is_player_horse
 	direction = facing
+	
+func setup_mounts(knight_path: NodePath, lance_path: NodePath):
+	"""Configure the RemoteTransform2D targets"""
+	knight_mount.remote_path = knight_path
+	lance_mount.remote_path = lance_path
 
-	# Flip sprite based on facing direction
-	sprite.flip_h = (facing == -1)  # Flip if facing left
+	# Configure what to sync
+	knight_mount.update_position = true
+	knight_mount.update_rotation = false  # Knight stays upright
+	knight_mount.update_scale = false
 
-	print("Horse setup - Player: %s, Direction: %d, Flipped: %s" % 
-		[is_player, direction, sprite.flip_h])
+	lance_mount.update_position = true
+	lance_mount.update_rotation = false  # Lance has its own rotation
+	lance_mount.update_scale = false
+	
+func enable_mounts():
+	"""Enable the mount system (for remounting)"""
+	knight_mount.update_position = true
+	lance_mount.update_position = true
+
+func disable_mounts():
+	"""Disable mounts for unhorsing"""
+	knight_mount.update_position = false
+	lance_mount.update_position = false
 
 func start_charge():
 	state_machine.current_state.transitioned.emit(state_machine.current_state, "Walking")
